@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
-import { Box, Heading, Flex } from '@chakra-ui/react';
+import { Box, Heading, Flex, Center } from '@chakra-ui/react';
 import { ServiceLayout } from '@/component/service_layout';
+import { GoogleLoginButton } from '@/component/google_login_button';
 
 const IndexPage: NextPage = function () {
   return (
@@ -11,7 +12,9 @@ const IndexPage: NextPage = function () {
           <Heading>#BlahBlah</Heading>
         </Flex>
       </Box>
-      <Box>로그인 버튼</Box>
+      <Center mt="20">
+        <GoogleLoginButton />
+      </Center>
     </ServiceLayout>
   );
 };
