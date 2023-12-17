@@ -1,5 +1,6 @@
 import { getApps, initializeApp } from 'firebase/app';
 import { Auth, getAuth } from 'firebase/auth';
+import { getConfig } from 'next/config';
 
 // import getConfig from 'next.config';
 const { publicRuntimeConfig } = getConfig();
