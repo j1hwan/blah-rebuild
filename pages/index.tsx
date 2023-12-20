@@ -10,7 +10,7 @@ const IndexPage: NextPage = function () {
   const {signInWithGoogle, authUser} = useAuth();
   console.info(authUser);
   return (
-    <ServiceLayout title="Home">
+    <ServiceLayout title="Home" backgroundColor="gray.50" minH="100vh">
       <Box maxW="md" mx="auto">
         <img src="/main_logo.svg" alt="메인 로고" />
         <Flex justify="center">
