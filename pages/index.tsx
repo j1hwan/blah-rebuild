@@ -2,14 +2,13 @@
 /* eslint-disable prefer-destructuring */
 import { NextPage } from 'next';
 import { Box, Heading, Flex, Center } from '@chakra-ui/react';
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { ServiceLayout } from '@/component/service_layout';
 import { GoogleLoginButton } from '@/component/google_login_button';
-import FirebaseClient from '@/models/firebase_client';
-
-const provider = new GoogleAuthProvider();
+import { useAuth } from '@/contexts/auth_user_context';
 
 const IndexPage: NextPage = function () {
+  const {signInWithGoogle, authUser} = useAuth();
+  console.info(authUser);
   return (
     <ServiceLayout title="Home">
       <Box maxW="md" mx="auto">
@@ -19,14 +18,7 @@ const IndexPage: NextPage = function () {
         </Flex>
       </Box>
       <Center mt="20">
-        <GoogleLoginButton onClick={() => {signInWithPopup(FirebaseClient.getInstace().Auth, provider)
-        .then((result) => {
-          console.info(result.user);
-        })
-        .catch((error) => {
-          console.error(error)     // ...
-        });
-        }}/>
+        <GoogleLoginButton onClick={signInWithGoogle}/>
       </Center>
     </ServiceLayout>
   );
