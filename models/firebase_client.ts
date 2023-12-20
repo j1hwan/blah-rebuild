@@ -26,7 +26,7 @@ export default class FirebaseClient {
     console.info('Firebase auth');
   }
 
-  public static getInstace(): FirebaseClient {
+  public static getInstance(): FirebaseClient {
     if (FirebaseClient.instance === undefined || FirebaseClient.instance === null) {
       FirebaseClient.instance = new FirebaseClient();
     }
