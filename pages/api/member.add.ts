@@ -1,5 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { NextApiRequest, NextApiResponse } from 'next';
+import { getMaxListeners } from 'process';
 import FirebaseAdmin from '@/models/firebase_admin';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -8,13 +9,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (uid === undefined || uid === null) {
     return res.status(400).json({ result: false, message: 'uid is required' });
   }
+  if (email === undefined || email === null) {
+    return res.status(400).json({ result: false, message: 'email is required' });
+  }
   try {
     const addResult = await FirebaseAdmin.getInstance()
       .Firebase.collection('members')
       .doc(uid)
       .set({
         uid,
-        email: email ?? '',
+        email,
+        displayName: displayName ?? '',
+        photoURL: photoURL ?? '',
+      });
+    const screenName = (email as string).replace('@gmail.com', '');
+    await FirebaseAdmin.getInstance()
+      .Firebase.collection('screen_names')
+      .doc(screenName)
+      .set({
+        uid,
+        email,
         displayName: displayName ?? '',
         photoURL: photoURL ?? '',
       });
