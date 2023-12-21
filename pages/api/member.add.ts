@@ -11,7 +11,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const addResult = await FirebaseAdmin.getInstance()
       .Firebase.collection('members')
-      .add({
+      .doc(uid)
+      .set({
         uid,
         email: email ?? '',
         displayName: displayName ?? '',
