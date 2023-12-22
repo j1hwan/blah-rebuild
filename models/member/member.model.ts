@@ -10,8 +10,8 @@ async function add({ uid, displayName, email, photoURL }: InAuthUser): Promise<A
   try {
     const screenName = (email as string).replace('@gmail.com', '');
     const addResult = await FirebaseAdmin.getInstance().Firebase.runTransaction(async (transaction) => {
-      const memeberRef = FirebaseAdmin.getInstance().Firebase.collection('members').doc(uid);
-      const screenNameRef = FirebaseAdmin.getInstance().Firebase.collection('screen_names').doc(screenName);
+      const memeberRef = FirebaseAdmin.getInstance().Firebase.collection(MEMEBER_COL).doc(uid);
+      const screenNameRef = FirebaseAdmin.getInstance().Firebase.collection(SCR_NAME_COL).doc(screenName);
       // memeberRef를 이용하여 등록된 사용자 정보에 접근
       const memberDoc = await transaction.get(memeberRef);
       if (memberDoc.exists) {
