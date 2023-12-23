@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import MemberModel from '@/models/member/member.model';
-import BadReqError from './errror/bad_request_error';
+import BadReqError from './error/bad_request_error';
 
 async function add(req: NextApiRequest, res: NextApiResponse) {
   // InAuthUser 참고

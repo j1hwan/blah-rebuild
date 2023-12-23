@@ -1,8 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { NextApiRequest, NextApiResponse } from 'next';
 import MemberCtrl from '@/controllers/member.ctrl';
-import handleError from '@/controllers/errror/handle_error';
-import CustomServerError from '@/controllers/errror/custom_server_error';
+import handleError from '@/controllers/error/handle_error';
+import CustomServerError from '@/controllers/error/custom_server_error';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { method } = req;
