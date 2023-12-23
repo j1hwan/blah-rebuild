@@ -1,14 +1,15 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import MemberModel from '@/models/member/member.model';
+import BadReqError from './errror/bad_request_error';
 
 async function add(req: NextApiRequest, res: NextApiResponse) {
   // InAuthUser 참고
   const { uid, email, displayName, photoURL } = req.body;
   if (uid === undefined || uid === null) {
-    return res.status(400).json({ result: false, message: 'uid is required' });
+    throw new BadReqError('uid is required');
   }
   if (email === undefined || email === null) {
-    return res.status(400).json({ result: false, message: 'email is required' });
+    throw new BadReqError('email is required');
   }
   const addResult = await MemberModel.add({ uid, email, displayName, photoURL });
   if (addResult.result === true) {
