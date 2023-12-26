@@ -1,5 +1,6 @@
-import { Avatar, Box, Flex, Text } from '@chakra-ui/react';
+import { Avatar, Box, Button, Flex, Text, Textarea } from '@chakra-ui/react';
 import { NextPage } from 'next';
+import ResizeTextarea from 'react-textarea-autosize';
 import { ServiceLayout } from '@/component/service_layout';
 
 const userInfo = {
@@ -22,7 +23,26 @@ const UserHomePage: NextPage = function () {
             </Flex>
           </Flex>
         </Box>
-        test
+        <Box borderWidth="1px" borderRadius="lg" overflow="hidden" mb="2px" bg="white" p="2">
+          <Flex align="center">
+            <Avatar size="xs" src="https://bit.ly/broken-link" mr="2" />
+            <Textarea
+              bg="gray.100"
+              border="none"
+              placeholder="내용을 입력하세요"
+              resize="none"
+              minH="unset"
+              overflow="hidden"
+              fontSize="xs"
+              mr="2"
+              as={ResizeTextarea}
+              maxRows={7}
+            />
+            <Button bg="#ffb86c" color="white" colorScheme="yellow" variant="solid" size="sm">
+              등록
+            </Button>
+          </Flex>
+        </Box>
       </Box>
     </ServiceLayout>
   );
