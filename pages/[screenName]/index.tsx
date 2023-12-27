@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Flex, Text, Textarea, useToast } from '@chakra-ui/react';
+import { Avatar, Box, Button, Flex, FormControl, FormLabel, Switch, Text, Textarea, useToast } from '@chakra-ui/react';
 import { NextPage } from 'next';
 import ResizeTextarea from 'react-textarea-autosize';
 import { useState } from 'react';
@@ -14,6 +14,7 @@ const userInfo = {
 const UserHomePage: NextPage = function () {
   const [message, setMessage] = useState('');
   const toast = useToast();
+  const [isAnonymous, setIsAnonymous] = useState(true);
   return (
     <ServiceLayout title="user info" minH="100vh" backgroundColor="gray.50">
       <Box maxW="md" mx="auto" pt="6">
@@ -66,6 +67,21 @@ const UserHomePage: NextPage = function () {
               등록
             </Button>
           </Flex>
+          <FormControl display="flex" alignItems="center" mt="1">
+            <Switch
+              size="sm"
+              colorScheme="orange"
+              id="anonymous"
+              mr="1"
+              isChecked={isAnonymous}
+              onChange={() => {
+                setIsAnonymous((prev) => !prev);
+              }}
+            />
+            <FormLabel htmlFor="anonymous " mb="0" fontSize="x-small">
+              anonymous
+            </FormLabel>
+          </FormControl>
         </Box>
       </Box>
     </ServiceLayout>
