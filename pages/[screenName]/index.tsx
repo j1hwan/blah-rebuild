@@ -1,6 +1,7 @@
-import { Avatar, Box, Button, Flex, Text, Textarea } from '@chakra-ui/react';
+import { Avatar, Box, Button, Flex, Text, Textarea, useToast } from '@chakra-ui/react';
 import { NextPage } from 'next';
 import ResizeTextarea from 'react-textarea-autosize';
+import { useState } from 'react';
 import { ServiceLayout } from '@/component/service_layout';
 
 const userInfo = {
@@ -11,6 +12,8 @@ const userInfo = {
 };
 
 const UserHomePage: NextPage = function () {
+  const [message, setMessage] = useState('');
+  const toast = useToast();
   return (
     <ServiceLayout title="user info" minH="100vh" backgroundColor="gray.50">
       <Box maxW="md" mx="auto" pt="6">
@@ -37,8 +40,29 @@ const UserHomePage: NextPage = function () {
               mr="2"
               as={ResizeTextarea}
               maxRows={7}
+              value={message}
+              onChange={(e) => {
+                if (e.currentTarget.value) {
+                  const lineCount = (e.currentTarget.value.match(/[^\n]*\n[^\n]*/gi)?.length ?? 1) + 1;
+                  if (lineCount > 7) {
+                    toast({
+                      title: '7줄까지만 입력 가능합니다.',
+                      position: 'top-right',
+                    });
+                    return;
+                  }
+                }
+                setMessage(e.currentTarget.value);
+              }}
             />
-            <Button bg="#ffb86c" color="white" colorScheme="yellow" variant="solid" size="sm">
+            <Button
+              disabled={message.length === 0}
+              bg="#ffb86c"
+              color="white"
+              colorScheme="yellow"
+              variant="solid"
+              size="sm"
+            >
               등록
             </Button>
           </Flex>
