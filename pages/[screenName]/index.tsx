@@ -3,6 +3,7 @@ import { NextPage } from 'next';
 import ResizeTextarea from 'react-textarea-autosize';
 import { useState } from 'react';
 import { ServiceLayout } from '@/component/service_layout';
+import { useAuth } from '@/contexts/auth_user_context';
 
 const userInfo = {
   uid: 'test',
@@ -15,6 +16,8 @@ const UserHomePage: NextPage = function () {
   const [message, setMessage] = useState('');
   const toast = useToast();
   const [isAnonymous, setIsAnonymous] = useState(true);
+  const { authUser } = useAuth();
+
   return (
     <ServiceLayout title="user info" minH="100vh" backgroundColor="gray.50">
       <Box maxW="md" mx="auto" pt="6">
@@ -29,7 +32,11 @@ const UserHomePage: NextPage = function () {
         </Box>
         <Box borderWidth="1px" borderRadius="lg" overflow="hidden" mb="2px" bg="white" p="2">
           <Flex align="center">
-            <Avatar size="xs" src="https://bit.ly/broken-link" mr="2" />
+            <Avatar
+              size="xs"
+              src={isAnonymous ? 'https://bit.ly/broken-link' : authUser?.photoURL ?? 'https://bit.ly/broken-link'}
+              mr="2"
+            />
             <Textarea
               bg="gray.100"
               border="none"
@@ -67,7 +74,7 @@ const UserHomePage: NextPage = function () {
               등록
             </Button>
           </Flex>
-          <FormControl display="flex" alignItems="center" mt="1">
+          <FormControl display="flex" alignItems="center" mt="1" pb="2">
             <Switch
               size="sm"
               colorScheme="orange"
@@ -75,6 +82,13 @@ const UserHomePage: NextPage = function () {
               mr="1"
               isChecked={isAnonymous}
               onChange={() => {
+                if (authUser === null) {
+                  toast({
+                    title: '로그인이 필요합니다.',
+                    position: 'top-right',
+                  });
+                  return;
+                }
                 setIsAnonymous((prev) => !prev);
               }}
             />
