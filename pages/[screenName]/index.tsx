@@ -74,7 +74,7 @@ const UserHomePage: NextPage = function () {
               등록
             </Button>
           </Flex>
-          <FormControl display="flex" alignItems="center" mt="1" pb="2">
+          <FormControl display="flex" alignItems="center" mt="2" pb="2">
             <Switch
               size="sm"
               colorScheme="orange"
@@ -92,8 +92,8 @@ const UserHomePage: NextPage = function () {
                 setIsAnonymous((prev) => !prev);
               }}
             />
-            <FormLabel htmlFor="anonymous " mb="0" fontSize="x-small">
-              anonymous
+            <FormLabel htmlFor="anonymous " mb="0" fontSize="x-small" ml="1">
+              {isAnonymous ? '(기본)익명 등록' : '공개 등록'}
             </FormLabel>
           </FormControl>
         </Box>
