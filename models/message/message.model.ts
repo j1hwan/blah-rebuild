@@ -39,8 +39,8 @@ async function post({
   });
 }
 
-const messageModel = {
+const MessageModel = {
   post,
 };
 
-export default messageModel;
+export default MessageModel;

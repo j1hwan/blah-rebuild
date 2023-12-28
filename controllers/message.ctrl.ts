@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import BadReqError from './error/bad_request_error';
-import messageModel from '@/models/message/message.model';
+import MessageModel from '@/models/message/message.model';
 
 async function post(req: NextApiRequest, res: NextApiResponse) {
   const { uid, message, author } = req.body;
@@ -10,7 +10,7 @@ async function post(req: NextApiRequest, res: NextApiResponse) {
   if (message === undefined) {
     throw new BadReqError('message가 누락되었습니다.');
   }
-  await messageModel.post({ uid, message, author });
+  await MessageModel.post({ uid, message, author });
   return res.status(200).end();
 }
 
