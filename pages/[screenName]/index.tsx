@@ -132,6 +132,7 @@ const UserHomePage: NextPage<Props> = function ({ userInfo }) {
                 if (messageResp.result === false) {
                   toast({ title: '메시지 등록 실패', position: 'top-right' });
                 }
+                setMessage('');
               }}
             >
               등록
