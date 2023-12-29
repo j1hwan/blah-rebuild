@@ -11,6 +11,42 @@ interface Props {
   userInfo: InAuthUser | null;
 }
 
+async function postMessage({
+  uid,
+  message,
+  author,
+}: {
+  uid: string;
+  message: string;
+  author?: { displayName: string; phoroURL?: string };
+}) {
+  if (message.length <= 0) {
+    return {
+      result: false,
+      message: '메시지를 입력해주세요.',
+    };
+  }
+  try {
+    await fetch('/api/message.add', {
+      method: 'POST',
+      body: JSON.stringify({
+        uid,
+        message,
+        author,
+      }),
+    });
+    return {
+      result: true,
+    };
+  } catch (err) {
+    console.error(err);
+    return {
+      result: false,
+      message: '메시지 등록에 실패했습니다.',
+    };
+  }
+}
+
 const UserHomePage: NextPage<Props> = function ({ userInfo }) {
   const [message, setMessage] = useState('');
   const toast = useToast();
@@ -71,6 +107,29 @@ const UserHomePage: NextPage<Props> = function ({ userInfo }) {
               colorScheme="yellow"
               variant="solid"
               size="sm"
+              onClick={async () => {
+                const postData: {
+                  message: string;
+                  uid: string;
+                  author?: {
+                    displayName: string;
+                    photoURL?: string;
+                  };
+                } = {
+                  message,
+                  uid: userInfo.uid,
+                };
+                if (isAnonymous === false) {
+                  postData.author = {
+                    photoURL: authUser?.photoURL ?? 'https://bit.ly/broken-link',
+                    displayName: authUser?.displayName ?? 'anonymous',
+                  };
+                }
+                const messageResp = await postMessage(postData);
+                if (messageResp.result === false) {
+                  toast({ title: '메시지 등록 실패', position: 'top-right' });
+                }
+              }}
             >
               등록
             </Button>
