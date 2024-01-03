@@ -46,7 +46,7 @@ const MessageItem = function ({ photoURL, displayName, isOwner, item }: Props) {
               <Box borderRadius="md" mt="2" p="2" width="full" bg="gray.100">
                 <Text fontSize="xs">{displayName}</Text>
                 <Text whiteSpace="pre-line" fontSize="xs" color="gray">
-                  {convertDateToString(item.replayAt)}
+                  {convertDateToString(item.replyAt)}
                 </Text>
                 <Text whiteSpace="pre-line" fontSize="xs">
                   {item.reply}

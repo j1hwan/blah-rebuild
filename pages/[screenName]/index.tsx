@@ -185,7 +185,7 @@ const UserHomePage: NextPage<Props> = function ({ userInfo }) {
               message: '테스트입니다',
               createAt: '2022-03-15T20:15:55+09:00',
               reply: '테스트 답변입니다.',
-              replayAt: '2022-03-16T20:15:55+09:00',
+              replyAt: '2022-03-16T20:15:55+09:00',
             }}
           />
           <MessageItem
