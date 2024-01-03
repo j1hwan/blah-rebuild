@@ -1,6 +1,7 @@
 import { firestore } from 'firebase-admin';
 import CustomServerError from '@/controllers/error/custom_server_error';
 import FirebaseAdmin from '../firebase_admin';
+import { InMessageServer } from './in_message';
 
 const MEMEBER_COL = 'members';
 const MESSAGE_COL = 'messages';
@@ -39,8 +40,33 @@ async function post({
   });
 }
 
+async function list({ uid }: { uid: string }) {
+  const memberRef = Firestore.collection(MEMEBER_COL).doc(uid);
+  const listData = await Firestore.runTransaction(async (transaction) => {
+    const memberDoc = await transaction.get(memberRef);
+    if (memberDoc.exists === false) {
+      throw new CustomServerError({ statusCode: 400, message: 'Member not found' });
+    }
+    const messageCol = memberRef.collection(MESSAGE_COL);
+    const messageColDoc = await transaction.get(messageCol);
+    const data = messageColDoc.docs.map((mv) => {
+      const docData = mv.data() as Omit<InMessageServer, 'id'>;
+      const returnData = {
+        ...docData,
+        id: mv.id,
+        createAt: docData.createAt.toDate().toISOString(),
+        replyAt: docData.replyAt ? docData.replyAt.toDate().toISOString() : undefined,
+      } as InMessage;
+      return returnData;
+    });
+    return data;
+  });
+  return listData;
+}
+
 const MessageModel = {
   post,
+  list,
 };
 
 export default MessageModel;
