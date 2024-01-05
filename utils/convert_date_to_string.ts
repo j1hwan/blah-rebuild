@@ -25,7 +25,7 @@ function convertDateToString(dateString: string): string {
     return '방금';
   }
   if (years === 0 && months === 0 && days === 0 && hours === 0 && minutes === 0 && seconds) {
-    return `${Math.floor(seconds)}초}`;
+    return `${Math.floor(seconds)}초`;
   }
   if (years === 0 && months === 0 && days === 0 && hours === 0) {
     return `${minutes}분`;
