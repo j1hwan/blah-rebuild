@@ -1,7 +1,7 @@
 import { firestore } from 'firebase-admin';
 import CustomServerError from '@/controllers/error/custom_server_error';
 import FirebaseAdmin from '../firebase_admin';
-import { InMessageServer } from './in_message';
+import { InMessage, InMessageServer } from './in_message';
 
 const MEMEBER_COL = 'members';
 const MESSAGE_COL = 'messages';
