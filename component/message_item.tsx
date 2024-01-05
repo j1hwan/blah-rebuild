@@ -44,10 +44,14 @@ const MessageItem = function ({ photoURL, displayName, isOwner, item }: Props) {
                 <Avatar size="xs" src={photoURL} mr="2" />
               </Box>
               <Box borderRadius="md" mt="2" p="2" width="full" bg="gray.100">
-                <Text fontSize="xs">{displayName}</Text>
-                <Text whiteSpace="pre-line" fontSize="xs" color="gray">
-                  {convertDateToString(item.replyAt)}
-                </Text>
+                <Flex alignItems="center">
+                  <Text fontSize="xs" pr="2">
+                    {displayName}
+                  </Text>
+                  <Text whiteSpace="pre-line" fontSize="xs" color="gray">
+                    {convertDateToString(item.replyAt)}
+                  </Text>
+                </Flex>
                 <Text whiteSpace="pre-line" fontSize="xs">
                   {item.reply}
                 </Text>
