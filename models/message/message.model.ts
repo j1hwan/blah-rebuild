@@ -64,9 +64,30 @@ async function list({ uid }: { uid: string }) {
   return listData;
 }
 
+async function postReply({ uid, messageId, reply }: { uid: string; messageId: string; reply: string }) {
+  const memberRef = Firestore.collection(MEMEBER_COL).doc(uid);
+  const messageRef = Firestore.collection(MEMEBER_COL).doc(uid).collection(MESSAGE_COL).doc(messageId);
+  await Firestore.runTransaction(async (transaction) => {
+    const memberDoc = await transaction.get(memberRef);
+    const messageDoc = await transaction.get(messageRef);
+    if (memberDoc.exists === false) {
+      throw new CustomServerError({ statusCode: 400, message: 'Member not found' });
+    }
+    if (messageDoc.exists === false) {
+      throw new CustomServerError({ statusCode: 400, message: 'Message not found' });
+    }
+    const messageData = messageDoc.data() as InMessageServer;
+    if (messageData.reply !== undefined) {
+      throw new CustomServerError({ statusCode: 400, message: 'Message already has reply' });
+    }
+    await transaction.update(messageRef, { reply, replyAt: firestore.FieldValue.serverTimestamp() });
+  });
+}
+
 const MessageModel = {
   post,
   list,
+  postReply,
 };
 
 export default MessageModel;
