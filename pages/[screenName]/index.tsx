@@ -165,6 +165,7 @@ const UserHomePage: NextPage<Props> = function ({ userInfo }) {
                   toast({ title: '메시지 등록 실패', position: 'top-right' });
                 }
                 setMessage('');
+                setMessageListFetchTriger((prev) => !prev);
               }}
             >
               등록
