@@ -47,7 +47,7 @@ async function list({ uid }: { uid: string }) {
     if (memberDoc.exists === false) {
       throw new CustomServerError({ statusCode: 400, message: 'Member not found' });
     }
-    const messageCol = memberRef.collection(MESSAGE_COL);
+    const messageCol = memberRef.collection(MESSAGE_COL).orderBy('createAt', 'desc');
     const messageColDoc = await transaction.get(messageCol);
     const data = messageColDoc.docs.map((mv) => {
       const docData = mv.data() as Omit<InMessageServer, 'id'>;
