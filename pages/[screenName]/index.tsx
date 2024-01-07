@@ -69,6 +69,7 @@ const UserHomePage: NextPage<Props> = function ({ userInfo }) {
   const toast = useToast();
   const [isAnonymous, setIsAnonymous] = useState(true);
   const [messageList, setMessageList] = useState<InMessage[]>([]);
+  const [messageListFetchTriger, setMessageListFetchTriger] = useState(false);
   const { authUser } = useAuth();
   async function fetchMessageList(uid: string) {
     try {
@@ -84,7 +85,7 @@ const UserHomePage: NextPage<Props> = function ({ userInfo }) {
   useEffect(() => {
     if (userInfo === null) return;
     fetchMessageList(userInfo.uid);
-  }, [userInfo]);
+  }, [userInfo, messageListFetchTriger]);
   if (userInfo === null) {
     return <p>사용자를 찾을 수 없습니다.</p>;
   }
@@ -201,6 +202,9 @@ const UserHomePage: NextPage<Props> = function ({ userInfo }) {
               displayName={userInfo.displayName ?? ''}
               photoURL={userInfo.photoURL ?? 'https://bit.ly/broken-link'}
               isOwner={isOwner}
+              onSendComplete={() => {
+                setMessageListFetchTriger((prev) => !prev);
+              }}
             />
           ))}
         </VStack>
