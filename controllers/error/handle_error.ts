@@ -1,5 +1,4 @@
 import { NextApiResponse } from 'next';
-import { serialize } from 'v8';
 import CustomServerError from './custom_server_error';
 
 const handleError = (err: unknown, res: NextApiResponse) => {
