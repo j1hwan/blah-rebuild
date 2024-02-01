@@ -18,7 +18,7 @@ export default class FirebaseClient {
 
   public constructor() {
     const apps = getApps();
-    if (getApps.length === 0) {
+    if (apps.length === 0) {
       console.info('Firebase Client init start');
       initializeApp(FirebaseCredentials);
     }
