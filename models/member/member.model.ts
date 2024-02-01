@@ -37,7 +37,7 @@ async function add({ uid, displayName, email, photoURL }: InAuthUser): Promise<A
   }
 }
 
-async function findByScreenName(ScreenName: stirng): Promise<InAuthUser | null> {
+async function findByScreenName(ScreenName: string): Promise<InAuthUser | null> {
   const memberRef = FirebaseAdmin.getInstance().Firestore.collection(SCR_NAME_COL).doc(ScreenName);
   const memberDoc = await memberRef.get();
   if (memberDoc.exists === false) {
