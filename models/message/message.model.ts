@@ -5,7 +5,6 @@ import { InMessage, InMessageServer } from './in_message';
 
 const MEMEBER_COL = 'members';
 const MESSAGE_COL = 'messages';
-const SCR_NAME_COL = 'screen_names';
 
 const { Firestore } = FirebaseAdmin.getInstance();
 
