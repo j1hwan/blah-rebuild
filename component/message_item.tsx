@@ -64,7 +64,7 @@ const MessageItem = function ({ uid, photoURL, displayName, isOwner, item, onSen
                     {displayName}
                   </Text>
                   <Text whiteSpace="pre-line" fontSize="xs" color="gray">
-                    {convertDateToString(item.replyAt)}
+                    {convertDateToString(item.replyAt ?? '')}
                   </Text>
                 </Flex>
                 <Text whiteSpace="pre-line" fontSize="xs">
