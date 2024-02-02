@@ -95,7 +95,14 @@ const UserHomePage: NextPage<Props> = function ({ userInfo }) {
       <Box maxW="md" mx="auto" pt="6">
         <Box borderWidth="1px" borderRadius="lg" overflow="hidden" mb="2px" bg="white">
           <Flex p="6px">
-            <Avatar size="lg" src={userInfo.photoURL ?? 'https://bit.ly/broken-link'} mr="2" />
+            <Avatar
+              size="lg"
+              src={
+                userInfo.photoURL ??
+                'https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg'
+              }
+              mr="2"
+            />
             <Flex direction="column" justify="center">
               <Text fontSize="md">{userInfo.displayName}</Text>
               <Text fontSize="xs">{userInfo.email}</Text>
@@ -106,7 +113,12 @@ const UserHomePage: NextPage<Props> = function ({ userInfo }) {
           <Flex align="center">
             <Avatar
               size="xs"
-              src={isAnonymous ? 'https://bit.ly/broken-link' : authUser?.photoURL ?? 'https://bit.ly/broken-link'}
+              src={
+                isAnonymous
+                  ? 'https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg'
+                  : authUser?.photoURL ??
+                    'https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg'
+              }
               mr="2"
             />
             <Textarea
@@ -156,7 +168,9 @@ const UserHomePage: NextPage<Props> = function ({ userInfo }) {
                 };
                 if (isAnonymous === false) {
                   postData.author = {
-                    photoURL: authUser?.photoURL ?? 'https://bit.ly/broken-link',
+                    photoURL:
+                      authUser?.photoURL ??
+                      'https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg',
                     displayName: authUser?.displayName ?? 'anonymous',
                   };
                 }
@@ -201,7 +215,10 @@ const UserHomePage: NextPage<Props> = function ({ userInfo }) {
               item={messageData}
               uid={userInfo.uid}
               displayName={userInfo.displayName ?? ''}
-              photoURL={userInfo.photoURL ?? 'https://bit.ly/broken-link'}
+              photoURL={
+                userInfo.photoURL ??
+                'https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg'
+              }
               isOwner={isOwner}
               onSendComplete={() => {
                 setMessageListFetchTriger((prev) => !prev);

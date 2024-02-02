@@ -34,7 +34,12 @@ const MessageItem = function ({ uid, photoURL, displayName, isOwner, item, onSen
         <Flex pl="2" pt="2" alignItems="center">
           <Avatar
             size="xs"
-            src={item.author ? item.author.photoURL ?? 'https://bit.ly/broken-link' : 'https://bit.ly/broken-link'}
+            src={
+              item.author
+                ? item.author.photoURL ??
+                  'https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg'
+                : 'https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg'
+            }
           />
           <Text fontSize="xx-small" ml="1">
             {item.author ? item.author.displayName : '익명'}
